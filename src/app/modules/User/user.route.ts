@@ -10,14 +10,14 @@ import { fileUploader } from '../../../helpers/fileUploader';
 
 const router = express.Router();
 
+// get by user role
+router.route('/get-user/:role').get(UserController.getUserByRole);
+
 router.post(
   '/create',
   // validateRequest(userValidation.createUserSchema),
   UserController.createUser
 );
-
-// get new members
-router.get('/new-members', auth(), UserController.getNewMembers);
 
 router.put(
   '/update',

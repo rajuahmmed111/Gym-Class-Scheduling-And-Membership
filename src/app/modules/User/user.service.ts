@@ -8,6 +8,12 @@ import { UserStatus } from '@prisma/client';
 import { ObjectId } from 'mongodb';
 
 
+// get by user role
+const getUserByRole = async (role: string)=> {
+  
+};
+
+
 // create user
 const createUser = async (payload: any) => {
   const existingUser = await prisma.user.findUnique({
@@ -106,25 +112,6 @@ const deleteUser = async (userId: string, loggedId: string) => {
   return;
 };
 
-const getNewMembers = async () => {
-  const users = await prisma.user.findMany({
-    where: {
-      UserStatus: UserStatus.ACTIVE,
-    },
-    select: {
-      id: true,
-      userName: true,
-      email: true,
-      profileImage: true,
-      firstName: true,
-      lastName: true,
-    },
-    orderBy: { createdAt: 'desc' },
-    take: 20,
-  });
-
-  return users;
-};
 
 // update user first name and last name
 const updateUser = async (email: string, updates: UpdateUserInput) => {
@@ -188,12 +175,12 @@ const updateUserProfileImage = async (
 };
 
 export const UserService = {
+  getUserByRole,
   createUser,
   getAllUsers,
   getUserById,
   deleteUser,
   checkUsernameExists,
-  getNewMembers,
   updateUser,
   updateUserProfileImage,
 };

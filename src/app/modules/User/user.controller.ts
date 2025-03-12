@@ -5,6 +5,19 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import ApiError from '../../../errors/ApiErrors';
 
+// get by user role
+const getUserByRole = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.params)
+  const {role} = req.params
+  const result = await UserService.getUserByRole(role as string);
+  sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'get user by role successfully',
+      data: result,
+  });
+});
+
 // create  user
 const createUser = catchAsync(async (req: Request, res: Response) => {
   const result = await UserService.createUser(req.body);
@@ -89,17 +102,7 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 
-// get new members
-const getNewMembers = catchAsync(async (req: Request, res: Response) => {
-  const newMembers = await UserService.getNewMembers();
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'New members fetched successfully',
-    data: newMembers,
-  });
-});
 
 // update user first name and last name
 const updateUser = catchAsync(async (req: Request, res: Response) => {
@@ -152,12 +155,12 @@ const updateUserProfileImage = catchAsync(
 );
 
 const UserController = {
+  getUserByRole,
   createUser,
   getAllUsers,
   deleteUser,
   getUserById,
   checkUsername,
-  getNewMembers,
   updateUser,
   updateUserProfileImage,
 };
