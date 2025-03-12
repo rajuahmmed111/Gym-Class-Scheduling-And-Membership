@@ -18,11 +18,11 @@ router.get('/get-me', auth(), AuthController.getMyProfile);
 
 router.put(
   '/change-password',
+  auth(),
   validateRequest(authValidation.changePasswordValidationSchema),
   AuthController.changePassword
 );
 
-// router.put('/change-password', auth(), AuthController.changePassword);
 router.post("/forgot-password", AuthController.forgotPassword);
 
 router.post("/reset-password", AuthController.resetPassword);
