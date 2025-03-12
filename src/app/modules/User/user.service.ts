@@ -4,15 +4,23 @@ import ApiError from '../../../errors/ApiErrors';
 import prisma from '../../../shared/prisma';
 import { IUser, UpdateUserInput } from './user.interface';
 import config from '../../../config';
-import { UserStatus } from '@prisma/client';
+import { Role, UserStatus } from '@prisma/client';
 import { ObjectId } from 'mongodb';
 
-
 // get by user role
-const getUserByRole = async (role: string)=> {
-  
+const getUserByRole = async (role: Role) => {
+  try {
+      const users = await prisma.user.findMany({
+          where: { role: role },
+      });
+      return users;
+  } catch (error) {
+      console.error('Error occurred in getUserByRole:', error);
+      throw error; // Ensure the error is propagated
+  } finally {
+      await prisma.$disconnect(); // Clean up the Prisma client connection
+  }
 };
-
 
 // create user
 const createUser = async (payload: any) => {
@@ -39,7 +47,7 @@ const createUser = async (payload: any) => {
 
   if (existingUserName) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Username already exists!');
-  };
+  }
 
   const hashedPassword = await bcrypt.hash(payload.password, config.salt || 12);
 
@@ -54,7 +62,6 @@ const createUser = async (payload: any) => {
 
   return updateUser;
 };
-
 
 // check user  name
 const checkUsernameExists = async (userName: string) => {
@@ -84,7 +91,6 @@ const getUserById = async (id: string) => {
   return user;
 };
 
-
 // delete a user
 const deleteUser = async (userId: string, loggedId: string) => {
   if (!ObjectId.isValid(userId)) {
@@ -111,7 +117,6 @@ const deleteUser = async (userId: string, loggedId: string) => {
 
   return;
 };
-
 
 // update user first name and last name
 const updateUser = async (email: string, updates: UpdateUserInput) => {

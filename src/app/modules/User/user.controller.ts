@@ -4,12 +4,13 @@ import { UserService } from './user.service';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import ApiError from '../../../errors/ApiErrors';
+import { Role } from '@prisma/client';
 
 // get by user role
 const getUserByRole = catchAsync(async (req: Request, res: Response) => {
-  console.log(req.params)
   const {role} = req.params
-  const result = await UserService.getUserByRole(role as string);
+  console.log(role)
+  const result = await UserService.getUserByRole(role as Role);
   sendResponse(res, {
       success: true,
       statusCode: httpStatus.OK,
