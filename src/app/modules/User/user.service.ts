@@ -33,7 +33,7 @@ const createUser = async (payload: any) => {
 
   if (existingUserName) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Username already exists!');
-  }
+  };
 
   const hashedPassword = await bcrypt.hash(payload.password, config.salt || 12);
 
