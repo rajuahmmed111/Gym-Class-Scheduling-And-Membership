@@ -37,10 +37,11 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
+
 // Setup API routes
 app.use('/api/v1',router);
 
-// Error handling middleware
+// Global Error handling middleware
 app.use(GlobalErrorHandler);
 
 // 404 Not Found handler

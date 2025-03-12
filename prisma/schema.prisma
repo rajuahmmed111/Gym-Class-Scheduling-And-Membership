@@ -20,8 +20,8 @@ enum UserStatus {
 enum Role {
     SUPER_ADMIN
     ADMIN
-    CUSTOMER
-    EXECUTIVE
+    TRAINER
+    TRAINEE
 }
 
 // ---------------------------------------------------------
@@ -41,7 +41,7 @@ model User {
     otp          String?
     otpExpiry    DateTime?
     hexCode      String?
-    role         Role       @default(CUSTOMER)
+    role         Role       @default(TRAINEE)
     createdAt    DateTime   @default(now())
     updatedAt    DateTime   @updatedAt
 

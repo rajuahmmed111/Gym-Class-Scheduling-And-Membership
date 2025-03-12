@@ -3,7 +3,6 @@ import { WebSocketServer, WebSocket } from 'ws';
 import { PrismaClient } from '@prisma/client';
 import config from './config';
 import app from './app';
-// import { privateMessageService } from "./app/modules/privateMessage/privateMessage.service";
 
 const prisma = new PrismaClient();
 let wss: WebSocketServer;
@@ -53,13 +52,6 @@ async function main() {
           const privateMessage = parsed.message;
           broadcastToChannel(channelId, privateMessage);
         }
-        // else if (
-        //   parsed.type === "offer" ||
-        //   parsed.type === "answer" ||
-        //   parsed.type === "candidate"
-        // ) {
-        //   broadcastToChannel(parsed.channelName, parsed, ws);
-        // }
       } catch (err: any) {
         console.error('error:', err.message);
       }
