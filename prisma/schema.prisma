@@ -1,0 +1,49 @@
+// datasource and generator setup
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+// ---------------------------------------------------------
+//  ENUMS
+// ---------------------------------------------------------
+
+enum UserStatus {
+    ACTIVE
+    INACTIVE
+}
+
+enum Role {
+    SUPER_ADMIN
+    ADMIN
+    CUSTOMER
+    EXECUTIVE
+}
+
+// ---------------------------------------------------------
+//  MODELS
+// ---------------------------------------------------------
+
+model User {
+    id           String     @id @default(auto()) @map("_id") @db.ObjectId
+    firstName    String
+    lastName     String?
+    email        String     @unique
+    password     String
+    userName     String     @unique
+    dateOfBirth  DateTime?
+    profileImage String?    @default("https://i.ibb.co.com/XfLzVy23/download.png")
+    UserStatus   UserStatus @default(ACTIVE)
+    otp          String?
+    otpExpiry    DateTime?
+    hexCode      String?
+    role         Role       @default(CUSTOMER)
+    createdAt    DateTime   @default(now())
+    updatedAt    DateTime   @updatedAt
+
+    @@map("users")
+}
