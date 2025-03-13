@@ -9,4 +9,7 @@ const router = express.Router();
 // Create a new booking (only TRAINEE)
 router.post("/",auth(Role.TRAINEE), BookingController.createBooking)
 
+// Cancel booking
+router.put("/:id/cancel", auth(), BookingController.cancelBooking)
+
 export const bookingRoute = router;

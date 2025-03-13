@@ -53,6 +53,43 @@ const createBooking = async (traineeId: string, classScheduleId: string) => {
   return booking;
 };
 
+// Cancel booking
+
+const cancelBooking = async (bookingId: string, userId: string) => {
+  // user validation
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  // booking validation
+  const booking = await prisma.booking.findUnique({
+    where: { id: bookingId },
+  });
+  if (!booking) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Booking not found');
+  }
+
+  // Only the booking owner or the admin can cancel the booking
+  const isTrainee = user.id === booking.traineeId;
+  const isAdmin = user.role === Role.ADMIN;
+  if (!isTrainee && !isAdmin) {
+    throw new ApiError(
+      httpStatus.FORBIDDEN,
+      'You are not authorized to cancel this booking'
+    );
+  }
+
+  // Update the booking status to CANCELLED
+  booking.status = 'CANCELLED';
+  await prisma.booking.update({ where: { id: bookingId }, data: booking });
+
+  return booking;
+};
+
 export const BookingService = {
   createBooking,
+  cancelBooking,
 };
