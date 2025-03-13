@@ -1,4 +1,4 @@
-import { Role } from '@prisma/client';
+import { BookingStatus, Role } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 import ApiError from '../../../errors/ApiErrors';
 import httpStatus from 'http-status';
@@ -59,7 +59,7 @@ const createBooking = async (traineeId: string, classScheduleId: string) => {
 
 // Get booking by ID
 const getBookingById = async (bookingId: string) => {
-  const booking = await prisma.booking.findUnique({
+  const booking = await prisma.booking.findFirst({
     where: { id: bookingId },
   });
   if (!booking) {
@@ -79,7 +79,6 @@ const getMyBookings = async (userId: string) => {
   return bookings;
 };
 
-// todo: implement role  logic here
 // Get bookings by class schedule (for admin and trainer)
 const getBookingsByClassSchedule = async (
   classScheduleId: string,
@@ -130,10 +129,16 @@ const cancelBooking = async (bookingId: string, userId: string) => {
   }
 
   // Update the booking status to CANCELLED
-  booking.status = 'CANCELLED';
-  await prisma.booking.update({ where: { id: bookingId }, data: booking });
+  const cancelledBooking = await prisma.booking.update({
+    where: { id: bookingId },
+    data: { status: BookingStatus.CANCELLED },
+  });
 
-  return booking;
+  if(booking.status === BookingStatus.CANCELLED){
+    throw new ApiError(httpStatus.FORBIDDEN, 'Booking has already been cancelled');
+  }
+
+  return cancelledBooking;
 };
 
 export const BookingService = {

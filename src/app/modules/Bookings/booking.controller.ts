@@ -65,7 +65,7 @@ const getBookingsByClassSchedule = catchAsync(async (req, res) => {
 
 // Cancel booking
 const cancelBooking = catchAsync(async (req, res) => {
-  const { bookingId } = req.params;
+  const { id: bookingId } = req.params;
   const userId = req.user.id;
 
   const result = await BookingService.cancelBooking(bookingId, userId);

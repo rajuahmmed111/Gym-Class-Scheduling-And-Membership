@@ -19,13 +19,10 @@ router.get(
   BookingController.getBookingsByClassSchedule
 );
 
-// Get booking by ID
-router.get('/:id', auth(), BookingController.getBookingById);
-
 // Create a new booking (only TRAINEE)
 router.post('/create', auth(Role.TRAINEE), BookingController.createBooking);
 
 // Cancel booking
-router.put('/cancel/:id', auth(), BookingController.cancelBooking);
+router.patch('/:id/cancel', auth(), BookingController.cancelBooking);
 
 export const bookingRoute = router;
