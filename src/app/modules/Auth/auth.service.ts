@@ -108,8 +108,7 @@ const login = async (payload: {
   });
 
   return {
-    hexCode: identifier,
-    
+    hexCode: identifier
   };
 };
 
