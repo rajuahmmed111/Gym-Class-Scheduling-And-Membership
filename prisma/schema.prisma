@@ -50,7 +50,7 @@ model User {
     createdAt         DateTime        @default(now())
     updatedAt         DateTime        @updatedAt
     admin             Admin?
-    //    createdSchedules ClassSchedule[] @relation("CreatedBy")
+    createdSchedules  ClassSchedule[] @relation("CreatedBy")
     assignedSchedules ClassSchedule[] @relation("AssignedTo")
     booking           Booking[]
 
@@ -80,9 +80,8 @@ model ClassSchedule {
     updatedAt   DateTime @updatedAt
 
     // Relations
-    //   createdById String
-    //   createdBy   User     @relation("CreatedBy", fields: [createdById], references: [id])
-
+    createdById String?
+    createdBy   User?   @relation("CreatedBy", fields: [createdById], references: [id])
     trainerId String?
     trainer   User?   @relation("AssignedTo", fields: [trainerId], references: [id])
 
