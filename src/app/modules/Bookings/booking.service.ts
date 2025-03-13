@@ -53,8 +53,29 @@ const createBooking = async (traineeId: string, classScheduleId: string) => {
   return booking;
 };
 
-// Cancel booking
+// Get booking by ID
+const getBookingById = async (bookingId: string) => {
+  const booking = await prisma.booking.findUnique({
+    where: { id: bookingId },
+  });
+  if (!booking) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Booking not found');
+  }
+  return booking;
+};
 
+// Get my bookings
+const getMyBookings = async (userId: string) => {
+  const bookings = await prisma.booking.findMany({
+    where: { traineeId: userId },
+  });
+  if (!bookings) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'No bookings found');
+  }
+  return bookings;
+};
+
+// Cancel booking
 const cancelBooking = async (bookingId: string, userId: string) => {
   // user validation
   const user = await prisma.user.findUnique({
@@ -91,5 +112,7 @@ const cancelBooking = async (bookingId: string, userId: string) => {
 
 export const BookingService = {
   createBooking,
+  getBookingById,
+  getMyBookings,
   cancelBooking,
 };
