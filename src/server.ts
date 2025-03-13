@@ -28,7 +28,7 @@ async function main() {
     console.log('Server running on port', config.port);
   });
   initiateSuperAdmin();
-  
+
   // new WebSocket server
   wss = new WebSocketServer({ server });
 
