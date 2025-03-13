@@ -35,7 +35,7 @@
           > DELETE /users/:id: Delete a user by ID
 
 
-    2. Class Schedule
+    3. Class Schedule
           > POST /class-schedule/create: Create a class schedule
 
           > GET /class-schedule: Retrieve all class schedule
@@ -45,6 +45,18 @@
           > PUT /class-schedule/id: Update a class schedule by ID
 
           > DELETE /class-schedule/:id: Delete a class schedule by ID
+
+
+    4. Booking Class
+          > POST //bookings/create: Create a booking class
+
+          > GET /bookings/:id: Retrieve a single user by ID
+
+          > GET /my-bookings/my-bookings: Get my booking
+
+          > GET /class-schedule/:id: get booking class schedule
+
+          > PATCH /class-schedule/:id: cancel booking by ID
 
 # Installation and Setup
 
