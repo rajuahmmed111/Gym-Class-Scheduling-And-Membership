@@ -142,3 +142,6 @@ npm install
 Using npm:
 
 npm run dev
+
+
+Made with ❤️ by [RAJU AHMMED](https://my-portfolio-nine-dun-64.vercel.app/)
