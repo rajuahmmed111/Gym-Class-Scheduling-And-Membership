@@ -11,6 +11,7 @@ const getUserByRole = catchAsync(async (req: Request, res: Response) => {
   const {role} = req.params
   console.log(role)
   const result = await UserService.getUserByRole(role);
+  
   sendResponse(res, {
       success: true,
       statusCode: httpStatus.OK,
