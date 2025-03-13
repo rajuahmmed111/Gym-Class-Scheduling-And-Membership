@@ -101,11 +101,68 @@ const createClassSchedule = async (classScheduleData: any, userId: string) => {
   return newClassSchedule;
 };
 
+// Get class schedule by ID
+const getClassScheduleById = async (classScheduleId: string) => {
+  const classSchedule = await prisma.classSchedule.findUnique({
+    where: { id: classScheduleId },
+    include: {
+      trainer: true,
+    },
+  });
+
+  if (!classSchedule) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Class schedule not found');
+  }
+
+  return classSchedule;
+};
+
+// get all class schedules
+const getClassSchedules = async () => {
+  const classSchedules = await prisma.classSchedule.findMany({
+    include: {
+      trainer: true,
+    },
+  });
+
+  return classSchedules;
+};
+
+// update class schedule
+
+const updateClassSchedule = async (
+  classScheduleId: string,
+  userId: string,
+  updates: any
+) => {
+  const existingUser = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+
+  if (!existingUser) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'User not found');
+  }
+
+  const classSchedule = await prisma.classSchedule.findUnique({
+    where: { id: classScheduleId },
+  });
+
+  if (!classSchedule) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Class schedule not found');
+  }
+
+  const updatedClassSchedule = await prisma.classSchedule.update({
+    where: { id: classScheduleId },
+    data: updates,
+  });
+
+  return updatedClassSchedule;
+};
+
 export const ClassScheduleService = {
   createClassSchedule,
   getClassScheduleById,
   getClassSchedules,
-  getAvailableClassSchedules,
   updateClassSchedule,
   deleteClassSchedule,
 };

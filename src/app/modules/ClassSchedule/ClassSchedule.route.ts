@@ -12,16 +12,13 @@ router.post(
   ClassScheduleController.createClassSchedule
 );
 
-// Get class schedule by ID
+// get class schedule by ID
 router.get('/:id', auth(), ClassScheduleController.getClassScheduleById);
 
-// Get all class schedules with optional filters
+// get all class schedules
 router.get('/', auth(), ClassScheduleController.getClassSchedules);
 
-// Get available class schedules (less than 10 trainees)
-router.get('/available', ClassScheduleController.getAvailableClassSchedules);
-
-// Update class schedule (only ADMIN)
+// update class schedule (only ADMIN)
 router.put(
   '/:id',
   auth(Role.ADMIN),

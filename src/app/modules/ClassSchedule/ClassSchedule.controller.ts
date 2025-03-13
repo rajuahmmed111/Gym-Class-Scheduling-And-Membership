@@ -22,11 +22,52 @@ const createClassSchedule = catchAsync(async (req, res) => {
   });
 });
 
+// Get class schedule by ID
+const getClassScheduleById = catchAsync(async (req, res) => {
+  const id = req.params.id;
+
+  const result = await ClassScheduleService.getClassScheduleById(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Class schedule retrieved successfully',
+    data: result,
+  });
+});
+
+// get all class schedules
+const getClassSchedules = catchAsync(async (req, res) => {
+  const result = await ClassScheduleService.getClassSchedules();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Class schedules retrieved successfully',
+    data: result,
+  });
+});
+
+// update class schedule
+const updateClassSchedule = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const userId = req.user.id;
+  const data = req.body;
+
+  const result = await ClassScheduleService.updateClassSchedule(id,userId, data);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Class schedule updated successfully',
+    data: result,
+  });
+});
+
 export const ClassScheduleController = {
   createClassSchedule,
   getClassScheduleById,
   getClassSchedules,
-  getAvailableClassSchedules,
   updateClassSchedule,
   deleteClassSchedule,
 };
