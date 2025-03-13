@@ -1,6 +1,7 @@
 # Project Title: Gym Management System
 
 # Live Demo
+    https://gym-class-scheduling-and-membership.vercel.app/
 
 # Entity-Relationship (ER) Diagram
 
