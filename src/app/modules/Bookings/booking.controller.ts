@@ -45,6 +45,21 @@ const getMyBookings = catchAsync(async (req, res) => {
   });
 });
 
+// Get bookings by class schedule (for admin and trainer)
+const getBookingsByClassSchedule = catchAsync(async (req, res) => {
+  const { classScheduleId } = req.params;
+const userId = req.user.id;
+
+  const result = await BookingService.getBookingsByClassSchedule(classScheduleId, userId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Bookings retrieved successfully',
+    data: result,
+  });
+});
+
 // Cancel booking
 const cancelBooking = catchAsync(async (req, res) => {
   const { bookingId } = req.params;
@@ -64,5 +79,6 @@ export const BookingController = {
   createBooking,
   getBookingById,
   getMyBookings,
+  getBookingsByClassSchedule,
   cancelBooking
 };

@@ -75,6 +75,25 @@ const getMyBookings = async (userId: string) => {
   return bookings;
 };
 
+// todo: implement role  logic here
+// Get bookings by class schedule (for admin and trainer)
+const getBookingsByClassSchedule = async (
+  classScheduleId: string,
+  role: Role
+) => {
+  if (role === Role.ADMIN || role === Role.TRAINER) {
+    const bookings = await prisma.booking.findMany({
+      where: { classScheduleId },
+    });
+    if (!bookings) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'No bookings found');
+    }
+    return bookings;
+  } else {
+    throw new ApiError(httpStatus.FORBIDDEN, 'You are not authorized to view this data');
+  }
+};
+
 // Cancel booking
 const cancelBooking = async (bookingId: string, userId: string) => {
   // user validation
@@ -114,5 +133,6 @@ export const BookingService = {
   createBooking,
   getBookingById,
   getMyBookings,
+  getBookingsByClassSchedule,
   cancelBooking,
 };
