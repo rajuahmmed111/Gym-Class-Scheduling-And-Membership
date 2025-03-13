@@ -1,15 +1,15 @@
 # Project Title: Gym Management System
 
-# Live Demo
+## Live Demo
 
     https://gym-class-scheduling-and-membership.vercel.app/
 
-# Entity-Relationship (ER) Diagram
+## Entity-Relationship (ER) Diagram
 ![Gym ER-Diagram](uploads/ER-Diagram.png)
 
-# API Documentation
+## API Documentation
 
-    1. Postman Documentation
+    ```1. Postman Documentation
       https://documenter.getpostman.com/view/40219022/2sAYkAQNP1
 
     2. Auth Routes
