@@ -23,7 +23,7 @@ router.get(
 router.get('/:id', auth(), BookingController.getBookingById);
 
 // Create a new booking (only TRAINEE)
-router.post('/', auth(Role.TRAINEE), BookingController.createBooking);
+router.post('/create', auth(Role.TRAINEE), BookingController.createBooking);
 
 // Cancel booking
 router.put('/cancel/:id', auth(), BookingController.cancelBooking);
