@@ -64,6 +64,20 @@ const updateClassSchedule = catchAsync(async (req, res) => {
   });
 });
 
+// delete class schedule
+const deleteClassSchedule = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const userId = req.user.id;
+
+  await ClassScheduleService.deleteClassSchedule(id, userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.NO_CONTENT,
+    success: true,
+    message: 'Class schedule deleted successfully',
+  });
+});
+
 export const ClassScheduleController = {
   createClassSchedule,
   getClassScheduleById,

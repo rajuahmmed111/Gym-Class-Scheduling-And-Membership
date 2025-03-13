@@ -159,6 +159,31 @@ const updateClassSchedule = async (
   return updatedClassSchedule;
 };
 
+// delete class schedule
+const deleteClassSchedule = async (classScheduleId: string, userId: string) => {
+  const existingUser = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+
+  if (!existingUser) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'User not found');
+  }
+
+  const classSchedule = await prisma.classSchedule.findUnique({
+    where: { id: classScheduleId },
+  });
+
+  if (!classSchedule) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Class schedule not found');
+  }
+
+  await prisma.classSchedule.delete({
+    where: { id: classScheduleId },
+  });
+
+  return classSchedule;
+};
+
 export const ClassScheduleService = {
   createClassSchedule,
   getClassScheduleById,

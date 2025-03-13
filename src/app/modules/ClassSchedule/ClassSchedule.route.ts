@@ -25,7 +25,7 @@ router.put(
   ClassScheduleController.updateClassSchedule
 );
 
-// Delete class schedule
+// delete class schedule
 router.delete(
   '/:id',
   auth(Role.ADMIN),
