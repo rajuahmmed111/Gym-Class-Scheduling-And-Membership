@@ -5,6 +5,35 @@
 
 # Entity-Relationship (ER) Diagram
 
+# API Documentation
+
+    1. Auth Routes
+          > POST /auth/login: Login a user
+      
+          > POST /auth/logout: Logout a user
+          
+          > GET /auth/get-me: Retrieve the profile of the logged-in user
+
+          > PUT /auth/change-password: Change the password of the logged-in user
+
+          > POST /auth/forgot-password: Initiate password reset process
+
+          > POST /auth/reset-password: Complete password reset process
+
+    2. User Routes
+          > POST /users/create: Create a new user
+          
+          > GET /users: Retrieve all users
+           
+          > GET /users/:id: Retrieve a single user by ID
+          
+          > PUT /users/update: Update a user by 
+
+          > PATCH /users/profile-update: Update a user profile
+          
+          > DELETE /users/:id: Delete a user by ID
+
+
 # Installation and Setup
 
        1. Clone the repository : https://github.com/rajuahmmed111/Gym-Class-Scheduling-And-Membership.git
