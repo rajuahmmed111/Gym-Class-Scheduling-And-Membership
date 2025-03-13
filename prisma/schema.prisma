@@ -24,27 +24,35 @@ enum Role {
     TRAINEE
 }
 
+enum BookingStatus {
+    CONFIRMED
+    CANCELLED
+}
+
 // ---------------------------------------------------------
 //  MODELS
 // ---------------------------------------------------------
 
 model User {
-    id           String     @id @default(auto()) @map("_id") @db.ObjectId
-    firstName    String
-    lastName     String?
-    email        String     @unique
-    password     String
-    userName     String     @unique
-    dateOfBirth  DateTime?
-    profileImage String?    @default("https://i.ibb.co.com/XfLzVy23/download.png")
-    UserStatus   UserStatus @default(ACTIVE)
-    otp          String?
-    otpExpiry    DateTime?
-    hexCode      String?
-    role         Role       @default(TRAINEE)
-    createdAt    DateTime   @default(now())
-    updatedAt    DateTime   @updatedAt
-    admin        Admin?
+    id                String          @id @default(auto()) @map("_id") @db.ObjectId
+    firstName         String
+    lastName          String?
+    email             String          @unique
+    password          String
+    userName          String          @unique
+    dateOfBirth       DateTime?
+    profileImage      String?         @default("https://i.ibb.co.com/XfLzVy23/download.png")
+    UserStatus        UserStatus      @default(ACTIVE)
+    otp               String?
+    otpExpiry         DateTime?
+    hexCode           String?
+    role              Role            @default(TRAINEE)
+    createdAt         DateTime        @default(now())
+    updatedAt         DateTime        @updatedAt
+    admin             Admin?
+    //    createdSchedules ClassSchedule[] @relation("CreatedBy")
+    assignedSchedules ClassSchedule[] @relation("AssignedTo")
+    booking           Booking[]
 
     @@map("users")
 }
@@ -60,4 +68,47 @@ model Admin {
     updatedAt DateTime @updatedAt
 
     @@map("admins")
+}
+
+model ClassSchedule {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    title       String
+    description String?
+    startTime   DateTime
+    endTime     DateTime
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    // Relations
+    //   createdById String
+    //   createdBy   User     @relation("CreatedBy", fields: [createdById], references: [id])
+
+    trainerId String?
+    trainer   User?   @relation("AssignedTo", fields: [trainerId], references: [id])
+
+    bookings Booking[]
+
+    // Ensure the trainer is actually a TRAINER
+    @@index([trainerId])
+    // To help enforce the "maximum 5 classes per day" rule
+    @@index([startTime])
+    @@map("class_schedules")
+}
+
+model Booking {
+    id        String        @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime      @default(now())
+    updatedAt DateTime      @updatedAt
+    status    BookingStatus @default(CONFIRMED)
+
+    // Relations
+    traineeId String?
+    trainee   User?   @relation(fields: [traineeId], references: [id])
+
+    classScheduleId String?
+    classSchedule   ClassSchedule? @relation(fields: [classScheduleId], references: [id])
+
+    // Ensure a trainee can only book a specific class once
+    @@unique([traineeId, classScheduleId])
+    @@map("bookings")
 }

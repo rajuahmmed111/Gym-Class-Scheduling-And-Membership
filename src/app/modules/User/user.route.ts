@@ -11,7 +11,7 @@ import { fileUploader } from '../../../helpers/fileUploader';
 const router = express.Router();
 
 // get by user role
-router.route('/get-user/:role').get(UserController.getUserByRole);
+router.get('/get-user/:role', auth(), UserController.getUserByRole);
 
 router.post(
   '/create',

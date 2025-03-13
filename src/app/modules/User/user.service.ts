@@ -8,18 +8,28 @@ import { Role, UserStatus } from '@prisma/client';
 import { ObjectId } from 'mongodb';
 
 // get by user role
-const getUserByRole = async (role: Role) => {
-  try {
-      const users = await prisma.user.findMany({
-          where: { role: role },
-      });
-      return users;
-  } catch (error) {
-      console.error('Error occurred in getUserByRole:', error);
-      throw error; // Ensure the error is propagated
-  } finally {
-      await prisma.$disconnect(); // Clean up the Prisma client connection
+const getUserByRole = async (roleParam: string) => {
+  // converted starting role to enum role
+  const role = roleParam.toUpperCase() as Role;
+
+  // if role exists in enum Role
+  if (!Object.values(Role).includes(role)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, `Invalid role: ${roleParam}`);
   }
+
+  const users = await prisma.user.findMany({
+    where: { role : role},
+    select: {
+      firstName: true,
+      lastName: true,
+      userName: true,
+      email: true,
+      role: true,
+      UserStatus: true,
+    },
+  });
+
+  return users;
 };
 
 // create user
