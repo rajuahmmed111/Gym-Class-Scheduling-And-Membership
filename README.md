@@ -1,6 +1,7 @@
 # Project Title: Gym Management System
 
 # Live Demo
+
     https://gym-class-scheduling-and-membership.vercel.app/
 
 # Entity-Relationship (ER) Diagram
@@ -9,9 +10,9 @@
 
     1. Auth Routes
           > POST /auth/login: Login a user
-      
+
           > POST /auth/logout: Logout a user
-          
+
           > GET /auth/get-me: Retrieve the profile of the logged-in user
 
           > PUT /auth/change-password: Change the password of the logged-in user
@@ -22,17 +23,28 @@
 
     2. User Routes
           > POST /users/create: Create a new user
-          
+
           > GET /users: Retrieve all users
-           
+
           > GET /users/:id: Retrieve a single user by ID
-          
-          > PUT /users/update: Update a user by 
+
+          > PUT /users/update: Update a user by
 
           > PATCH /users/profile-update: Update a user profile
-          
+
           > DELETE /users/:id: Delete a user by ID
 
+
+    2. Class Schedule
+          > POST /class-schedule/create: Create a class schedule
+
+          > GET /class-schedule: Retrieve all class schedule
+
+          > GET /class-schedule/:id: Retrieve a single user by ID
+
+          > PUT /class-schedule/id: Update a class schedule by ID
+
+          > DELETE /class-schedule/:id: Delete a class schedule by ID
 
 # Installation and Setup
 
@@ -43,6 +55,7 @@
 
         # Basic
         NODE_ENV=development # do not add this when deploying to production
+
 DATABASE_URL="mongodb+srv://ticket-management-system:eEdx5K0CP5kDIsoa@cluster0.wqymbxc.mongodb.net/ticket-management-system?retryWrites=true&w=majority&appName=Cluster0"
 PORT = 5000
 
@@ -58,12 +71,12 @@ bc504e4e8400b61540cb0986da43f571f76e0b7e2b2a6f20d69564c342
 
 REFRESH_TOKEN_EXPIRES_IN=7d
 
-RESET_PASS_TOKEN=3e4f8b9a7f8c5b1e4e7e5d9b7190d6f5 
+RESET_PASS_TOKEN=3e4f8b9a7f8c5b1e4e7e5d9b7190d6f5
 
 RESET_PASS_TOKEN_EXPIRES_IN=1h
 
+# Features
 
-   # Features
 Authentication API: Complete authentication system using JWT for secure token-based authentication and bcrypt for password hashing.
 File Upload: Implemented using Multer with efficient file handling and short-term storage.
 Data Validation: Robust data validation using Zod and Prisma
@@ -71,6 +84,7 @@ Logging: Logging with Winston and file rotation using DailyRotateFile.
 API Request Logging: Logging API requests using Morgan
 
 # Tech Stack
+
 Typescript,
 Node.js,
 Express,
@@ -85,17 +99,18 @@ Winston,
 Daily-winston-rotate-file,
 Morgen,
 
-
 # Getting Started
+
 Follow these steps to set up and run the project locally.
 
- Prerequisites
+Prerequisites
 Ensure you have the following installed:
 
 Node.js
 
 # Installation
- 1. Clone the repository:
+
+1.  Clone the repository:
 
 git clone https://github.com/yourusername/your-repository.git
 cd your-repository
