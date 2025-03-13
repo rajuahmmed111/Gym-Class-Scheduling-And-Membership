@@ -63,3 +63,21 @@ Follow these steps to set up and run the project locally.
 Ensure you have the following installed:
 
 Node.js
+
+# Installation
+ 1. Clone the repository:
+
+git clone https://github.com/yourusername/your-repository.git
+cd your-repository
+
+2. Install dependencies:
+
+Using npm:
+
+npm install
+
+3. Run the project:
+
+Using npm:
+
+npm run dev
