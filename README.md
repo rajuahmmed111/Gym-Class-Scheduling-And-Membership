@@ -8,7 +8,10 @@
 
 # API Documentation
 
-    1. Auth Routes
+    1. Postman Documentation
+      https://documenter.getpostman.com/view/40219022/2sAYkAQNP1
+
+    2. Auth Routes
           > POST /auth/login: Login a user
 
           > POST /auth/logout: Logout a user
@@ -21,7 +24,7 @@
 
           > POST /auth/reset-password: Complete password reset process
 
-    2. User Routes
+    3. User Routes
           > POST /users/create: Create a new user
 
           > GET /users: Retrieve all users
@@ -35,7 +38,7 @@
           > DELETE /users/:id: Delete a user by ID
 
 
-    3. Class Schedule
+    4. Class Schedule
           > POST /class-schedule/create: Create a class schedule
 
           > GET /class-schedule: Retrieve all class schedule
@@ -47,7 +50,7 @@
           > DELETE /class-schedule/:id: Delete a class schedule by ID
 
 
-    4. Booking Class
+    5. Booking Class
           > POST //bookings/create: Create a booking class
 
           > GET /bookings/:id: Retrieve a single user by ID
