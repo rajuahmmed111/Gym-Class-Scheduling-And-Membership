@@ -9,8 +9,9 @@ const createBooking = async (traineeId: string, classScheduleId: string) => {
   const trainee = await prisma.user.findUnique({
     where: { id: traineeId },
   });
-  if (!trainee || trainee.role !== Role.TRAINEE) {
-    throw new ApiError(httpStatus.FORBIDDEN, 'Invalid trainee');
+
+  if (!trainee) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid trainee');
   }
 
   // Check if class schedule exists
@@ -21,10 +22,10 @@ const createBooking = async (traineeId: string, classScheduleId: string) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Class schedule not found');
   }
 
-  // Check if class is future
-  if (classSchedule.startTime < new Date()) {
-    throw new ApiError(httpStatus.FORBIDDEN, 'Class is already started');
-  }
+  // // Check if class is future
+  // if (classSchedule.startTime < new Date()) {
+  //   throw new ApiError(httpStatus.FORBIDDEN, 'Class is already started');
+  // }
 
   // Check if class has available slots (max 10 trainees)
   const totalBookings = await prisma.booking.count({
@@ -35,8 +36,11 @@ const createBooking = async (traineeId: string, classScheduleId: string) => {
   }
 
   // Check if trainee has already booked this class
-  const existingBooking = await prisma.booking.findUnique({
-    where: { traineeId_classScheduleId: { traineeId, classScheduleId } },
+  const existingBooking = await prisma.booking.findFirst({
+    where: {
+      traineeId,
+      classScheduleId,
+    },
   });
   if (existingBooking) {
     throw new ApiError(
@@ -90,7 +94,10 @@ const getBookingsByClassSchedule = async (
     }
     return bookings;
   } else {
-    throw new ApiError(httpStatus.FORBIDDEN, 'You are not authorized to view this data');
+    throw new ApiError(
+      httpStatus.FORBIDDEN,
+      'You are not authorized to view this data'
+    );
   }
 };
 

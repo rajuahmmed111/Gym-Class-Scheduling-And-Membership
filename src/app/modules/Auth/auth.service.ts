@@ -134,6 +134,7 @@ const enterOtp = async (payload: {
     {
       id: user.id,
       email: user.email,
+      role: user.role,
     },
     config.jwt.jwt_secret as Secret,
     config.jwt.expires_in as string

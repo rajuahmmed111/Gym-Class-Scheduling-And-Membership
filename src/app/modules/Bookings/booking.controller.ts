@@ -31,7 +31,7 @@ const getBookingById = catchAsync(async (req, res) => {
   });
 });
 
-// Get my bookings 
+// Get my bookings
 const getMyBookings = catchAsync(async (req, res) => {
   const userId = req.user.id;
 
@@ -48,9 +48,12 @@ const getMyBookings = catchAsync(async (req, res) => {
 // Get bookings by class schedule (for admin and trainer)
 const getBookingsByClassSchedule = catchAsync(async (req, res) => {
   const { classScheduleId } = req.params;
-const userId = req.user.id;
+  const userId = req.user.id;
 
-  const result = await BookingService.getBookingsByClassSchedule(classScheduleId, userId);
+  const result = await BookingService.getBookingsByClassSchedule(
+    classScheduleId,
+    userId
+  );
 
   sendResponse(res, {
     statusCode: 200,
@@ -63,7 +66,7 @@ const userId = req.user.id;
 // Cancel booking
 const cancelBooking = catchAsync(async (req, res) => {
   const { bookingId } = req.params;
-  const userId = req.user.id 
+  const userId = req.user.id;
 
   const result = await BookingService.cancelBooking(bookingId, userId);
 
@@ -80,5 +83,5 @@ export const BookingController = {
   getBookingById,
   getMyBookings,
   getBookingsByClassSchedule,
-  cancelBooking
+  cancelBooking,
 };
