@@ -3,6 +3,7 @@ import { WebSocketServer, WebSocket } from 'ws';
 import { PrismaClient } from '@prisma/client';
 import config from './config';
 import app from './app';
+import { initiateSuperAdmin } from './app/db/db';
 
 const prisma = new PrismaClient();
 let wss: WebSocketServer;
@@ -26,7 +27,8 @@ async function main() {
   const server: Server = app.listen(config.port, () => {
     console.log('Server running on port', config.port);
   });
-
+  initiateSuperAdmin();
+  
   // new WebSocket server
   wss = new WebSocketServer({ server });
 
