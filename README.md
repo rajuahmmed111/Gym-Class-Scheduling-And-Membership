@@ -36,9 +36,9 @@ Logging: Logging with Winston and file rotation using DailyRotateFile.
 API Request Logging: Logging API requests using Morgan
 
 # Tech Stack
-Typescript
-Node.js
-Express
+Typescript,
+Node.js,
+Express,
 Mongoose
 Bcrypt
 JWT
