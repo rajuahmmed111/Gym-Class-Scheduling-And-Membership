@@ -19,12 +19,17 @@ PORT = 5000
 JWT_SECRET=8cae8bb543258529ea845512a6190994cac61b323cb84dba2bedf27cb
 35bae7b4a4ae45e92f6d5c7e4199481bd0c5cbe9ac694e2d693b90d0d5
 3f4691acdf38a
+
 EXPIRES_IN=1d
+
 REFRESH_TOKEN_SECRET=54c97a8391e5ad06f3cbd09ca23439ed82f1c06029694a815011b4a4b
 bc504e4e8400b61540cb0986da43f571f76e0b7e2b2a6f20d69564c342
 9ebaa63e58173
+
 REFRESH_TOKEN_EXPIRES_IN=7d
+
 RESET_PASS_TOKEN=3e4f8b9a7f8c5b1e4e7e5d9b7190d6f5 
+
 RESET_PASS_TOKEN_EXPIRES_IN=1h
 
 
@@ -39,16 +44,16 @@ API Request Logging: Logging API requests using Morgan
 Typescript,
 Node.js,
 Express,
-Mongoose
-Bcrypt
-JWT
-NodeMailer
-Multer
-ESLint
-Prettier
-Winston
-Daily-winston-rotate-file
-Morgen
+Mongoose,
+Bcrypt,
+JWT,
+NodeMailer,
+Multer,
+ESLint,
+Prettier,
+Winston,
+Daily-winston-rotate-file,
+Morgen,
 
 
 # Getting Started
