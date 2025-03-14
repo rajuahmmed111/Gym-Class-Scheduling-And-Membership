@@ -1,5 +1,9 @@
 # Project Title: Gym Management System
 
+ ## Project Overview:
+   The Gym Class Scheduling and Membership Management System is designed to manage gym operations efficiently. The system defines three roles: Admin, Trainer, and Trainee, each with specific permissions. Admins are responsible for creating and managing trainers, scheduling classes, and assigning trainers to these schedules. Each day can have a maximum of five class schedules, with each class lasting two hours. Trainers conduct the classes and can view their assigned class schedules but cannot create new schedules or manage trainee profiles. Trainees can create and manage their own profiles and book class schedules if there is availability, with a maximum of ten trainees per schedule.
+
+
 ## Live Demo
 
     https://gym-class-scheduling-and-membership.vercel.app/
@@ -139,6 +143,11 @@ model Booking {
 
     @@map("bookings")
 }```
+
+
+  ## Admin Credentials:
+    ```email: superadmin@gmail10p.com
+      password:123456```
 
 ## Installation and Setup
 
