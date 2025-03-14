@@ -62,7 +62,85 @@
 
           > PATCH /class-schedule/:id: cancel booking by ID
 
-# Installation and Setup
+
+
+   ## Database Schema:
+
+   ```model User {
+    id                String          @id @default(auto()) @map("_id") @db.ObjectId
+    firstName         String
+    lastName          String?
+    email             String          @unique
+    password          String
+    userName          String          @unique
+    dateOfBirth       DateTime?
+    profileImage      String?         @default("https://i.ibb.co.com/XfLzVy23/download.png")
+    UserStatus        UserStatus      @default(ACTIVE)
+    otp               String?
+    otpExpiry         DateTime?
+    hexCode           String?
+    role              Role            @default(TRAINEE)
+    createdAt         DateTime        @default(now())
+    updatedAt         DateTime        @updatedAt
+    admin             Admin?
+    createdSchedules  ClassSchedule[] @relation("CreatedBy")
+    assignedSchedules ClassSchedule[] @relation("AssignedTo")
+    booking           Booking[]
+
+    @@map("users")
+}
+
+model Admin {
+    id       String @id @default(auto()) @map("_id") @db.ObjectId
+    userName String @unique
+
+    email String @unique
+    user  User?  @relation(fields: [email], references: [email])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("admins")
+}
+
+model ClassSchedule {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    title       String
+    description String?
+    startTime   DateTime
+    endTime     DateTime
+
+    // Relations
+    createdById String?   @db.ObjectId
+    createdBy   User?     @relation("CreatedBy", fields: [createdById], references: [id])
+    trainerId   String?   @db.ObjectId
+    trainer     User?     @relation("AssignedTo", fields: [trainerId], references: [id])
+    bookings    Booking[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("class_schedules")
+}
+
+model Booking {
+    id     String        @id @default(auto()) @map("_id") @db.ObjectId
+    status BookingStatus @default(CONFIRMED)
+
+    // Relations
+    traineeId String? @db.ObjectId
+    trainee   User?   @relation(fields: [traineeId], references: [id])
+
+    classScheduleId String?        @db.ObjectId
+    classSchedule   ClassSchedule? @relation(fields: [classScheduleId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("bookings")
+}```
+
+## Installation and Setup
 
        1. Clone the repository : https://github.com/rajuahmmed111/Gym-Class-Scheduling-And-Membership.git
 
@@ -115,11 +193,11 @@ Winston,
 Daily-winston-rotate-file,
 Morgen,
 
-# Getting Started
+ ## Getting Started
 
 Follow these steps to set up and run the project locally.
 
-Prerequisites
+ ## Prerequisites
 Ensure you have the following installed:
 
 Node.js
