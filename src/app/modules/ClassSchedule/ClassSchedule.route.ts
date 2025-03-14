@@ -8,7 +8,7 @@ const router = express.Router();
 // Create a new class schedule (only ADMIN)
 router.post(
   '/create',
-  auth(Role.ADMIN),
+  auth(Role.ADMIN, Role.SUPER_ADMIN),
   ClassScheduleController.createClassSchedule
 );
 
@@ -21,14 +21,14 @@ router.get('/', auth(), ClassScheduleController.getClassSchedules);
 // update class schedule (only ADMIN)
 router.put(
   '/:id',
-  auth(Role.ADMIN),
+  auth(Role.ADMIN, Role.SUPER_ADMIN),
   ClassScheduleController.updateClassSchedule
 );
 
 // delete class schedule
 router.delete(
   '/:id',
-  auth(Role.ADMIN),
+  auth(Role.ADMIN, Role.SUPER_ADMIN),
   ClassScheduleController.deleteClassSchedule
 );
 

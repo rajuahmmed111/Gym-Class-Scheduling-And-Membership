@@ -15,12 +15,12 @@ router.get('/my-bookings', auth(), BookingController.getMyBookings);
 // Get bookings by class schedule (for admin and trainer)
 router.get(
   '/class-schedule/:classScheduleId',
-  auth(Role.ADMIN, Role.TRAINER),
+  auth(Role.SUPER_ADMIN ,Role.ADMIN, Role.TRAINER),
   BookingController.getBookingsByClassSchedule
 );
 
 // Create a new booking (only TRAINEE)
-router.post('/create', auth(Role.TRAINEE), BookingController.createBooking);
+router.post('/create', auth(Role.TRAINEE, Role.SUPER_ADMIN), BookingController.createBooking);
 
 // Cancel booking
 router.patch('/:id/cancel', auth(), BookingController.cancelBooking);
