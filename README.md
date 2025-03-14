@@ -7,6 +7,7 @@
 ## Live Demo
 
     https://gym-class-scheduling-and-membership.vercel.app/
+    
 
 ## Entity-Relationship (ER) Diagram
 ![Gym ER-Diagram](uploads/ER-Diagram.png)
