@@ -97,6 +97,7 @@ const forgotPassword = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// reset password
 const resetPassword = catchAsync(async (req: Request, res: Response) => {
   const token = req.headers.authorization || '';
 
