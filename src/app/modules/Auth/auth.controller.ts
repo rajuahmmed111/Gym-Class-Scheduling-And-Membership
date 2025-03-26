@@ -16,6 +16,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// enter otp
 const enterOtp = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthServices.enterOtp(req.body);
 
