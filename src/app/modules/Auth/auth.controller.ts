@@ -36,6 +36,7 @@ const enterOtp = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// logout user
 const logoutUser = catchAsync(async (req: Request, res: Response) => {
   const id = req.user.id;
   // Clear the token cookie
