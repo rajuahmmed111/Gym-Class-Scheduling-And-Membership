@@ -5,6 +5,7 @@ import sendResponse from '../../../shared/sendResponse';
 import { AuthServices } from './auth.service';
 import config from '../../../config';
 
+// login user
 const loginUser = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthServices.login(req.body);
   sendResponse(res, {
